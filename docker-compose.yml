@@ -1,0 +1,48 @@
+# Environment to test mongodb
+version: '3'
+services:
+  database:
+    image: mongo
+    container_name: dam2-database
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: stefan
+      MONGO_INITDB_ROOT_PASSWORD: pw123
+    volumes:
+      - ./database:/data/db
+    networks:
+      - database
+  frontend:
+    image: decimelli/dam2-frontend
+    depends_on:
+      - listener
+    container_name: dam2-frontend
+    build:
+      context: dam2-frontend
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - api
+  listener:
+    image: decimelli/dam2-listener
+    depends_on:
+      - database
+    container_name: dam2-listener
+    build:
+      context: dam2-listener
+      dockerfile: src/main/docker/Dockerfile.jvm
+    environment:
+      QUARKUS_MONGODB_CREDENTIALS_USERNAME: stefan
+      QUARKUS_MONGODB_CREDENTIALS_PASSWORD: pw123
+      QUARKUS_MONGODB_CONNECTION_STRING: mongodb://dam2-database:27017
+    ports:
+      - 10010:10010
+    networks:
+      - api
+      - database
+networks:
+  api:
+    driver: bridge
+  database:
+    driver: bridge
