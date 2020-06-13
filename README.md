@@ -20,9 +20,9 @@ Then push the images with
 docker push decimelli/dam2-listener
 docker push decimelli/dam2-frontend
 ```
-In the production environment, ensure `docker-compose.yml` is in your directory, then run
+In the production environment, ensure `docker-compose.produciton.yml` is in your directory, then run
 ```$xslt
 docker login -u decimelli
-docker-compose -f dam2-production.yml up
+docker-compose -f docker-compose.produciton.yml up
 ```
 

@@ -11,8 +11,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 /**
- * Requires the src/test/docker/docker-compose.testenv.yml to be up:
- *      $ docker-compose -f dam2-listener/src/test/docker/docker-compose.testenv.yml up
+ * Requires the src/test/docker/docker-compose.testdb.yml to be up:
+ *      $ docker-compose -f dam2-listener/src/test/docker/docker-compose.testdb.yml up
  */
 @QuarkusTest
 public class ServicesResourceTest {
